@@ -1,52 +1,66 @@
 
-import { useState } from "react";
-import data from '../data/bansos.json'
-import StepperStatus from '../components/StepperStatus'
-import '../App.css'
+import { useEffect, useState } from "react";
+import "../App.css";
 
 function CekBansos() {
-  if (!data) {
-    return (
-      <main className="cek">
-        <h1>STATUS BANSOS</h1>
-        <p>Belum ada data.</p>
-      </main>
-    )
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/penyaluran")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Gagal mengambil data");
+        }
+        return response.json();
+      })
+      .then((result) => {
+        setData(result);
+      })
+      .catch((err) => {
+        setError(err.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return <main className="cek">Memuat data...</main>;
+  }
+
+  if (error) {
+    return <main className="cek">Error: {error}</main>;
   }
 
   return (
     <main className="cek">
       <h1>STATUS BANSOS</h1>
 
-      <div className="cek-header">
-        <div>
-          <div className="program">{data.program}</div>
-          <div className="nomor">{data.nomor}</div>
-        </div>
-        <span className="badge-status">{data.status}</span>
-      </div>
+      {data.length === 0 ? (
+        <p>Belum ada data.</p>
+      ) : (
+        data.map((item) => (
+          <div className="cek-header" key={item.id}>
+            <div>
+              <div className="program">
+                {item.program_bansos?.nama}
+              </div>
+              <div className="nomor">
+                {item.program_bansos?.kode}
+              </div>
+              <div className="nomor">
+                Nominal: Rp{item.nominal.toLocaleString("id-ID")}
+              </div>
+            </div>
 
-      <StepperStatus langkah={data.langkah} aktif={data.langkahAktif} />
-
-      <div className="info">
-        <div className="baris-info">
-          <span>Tanggal Approval</span>
-          <span className="nilai kuning">{data.tanggalApproval}</span>
-        </div>
-        <div className="baris-info">
-          <span>Estimasi diterima</span>
-          <span className="nilai lime">{data.estimasiDiterima}</span>
-        </div>
-      </div>
-
-      <p className="deskripsi">{data.deskripsi}</p>
-
-      <h2>Kriteria Penerima {data.program}</h2>
-      {data.kriteria.map((teks, i) => (
-        <p key={i} className="deskripsi">{teks}</p>
-      ))}
+            <span className="badge-status">{item.status}</span>
+          </div>
+        ))
+      )}
     </main>
-  )
+  );
 }
 
 export default CekBansos;
