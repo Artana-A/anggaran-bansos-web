@@ -1,17 +1,32 @@
 import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
 import './App.css'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import LandingPage from "./pages/Landing";
+import Home from "./pages/Home";
+import CekBansos from "./pages/CekBansos";
+
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div>
-      <h1>Beranda</h1>
-    </div>
-  )
+    <BrowserRouter>
+      <div className="app-layout">
+        <Navbar />
+
+        <div className="page-content">
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/cek-bansos" element={<CekBansos />} />
+          </Routes>
+        </div>
+
+        <Footer />
+      </div>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

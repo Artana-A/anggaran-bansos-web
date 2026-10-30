@@ -1,0 +1,20 @@
+{
+  "program": "KIPK",
+  "nomor": "00029I982928JH",
+  "status": "PROSES",
+  "langkahAktif": 3,
+  "langkah": [
+    { "keterangan": "Pengajuan diterima" },
+    { "keterangan": "Verifikasi data" },
+    { "keterangan": "Persetujuan" },
+    { "keterangan": "Dana disalurkan" }
+  ],
+  "tanggalApproval": "12 November 2026",
+  "estimasiDiterima": "30 November 2026",
+  "deskripsi": "Pengajuanmu sedang diproses. Pantau terus halaman ini untuk melihat perubahan status.",
+  "kriteria": [
+    "Terdaftar dalam Data Tunggal Sosial dan Ekonomi Nasional (DTSEN).",
+    "Berasal dari keluarga dengan kondisi ekonomi kurang mampu.",
+    "Sedang menempuh pendidikan dan memiliki nomor identitas siswa atau mahasiswa."
+  ]
+}
