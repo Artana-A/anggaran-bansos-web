@@ -43,6 +43,70 @@ Melalui Anggaran & Bansos, informasi publik disajikan dalam satu platform yang t
 
 Platform ini dikembangkan dengan mengintegrasikan frontend, backend, dan database agar informasi dapat ditampilkan secara terstruktur. Data dari database diakses melalui API backend, kemudian ditampilkan pada antarmuka website.
 
+## Installation & Setup
+
+Ikuti langkah-langkah berikut untuk menjalankan project secara lokal.
+
+### 1. Clone Repository
+
+Buka terminal, lalu jalankan perintah berikut:
+
+```bash
+git clone https://github.com/Artana-A/anggaran-bansos-web.git
+```
+
+Masuk ke direktori project:
+
+```bash
+cd anggaran-bansos-web
+```
+
+### 2. Install Dependencies
+
+Install seluruh dependencies yang dibutuhkan oleh frontend dan backend.
+
+**Frontend:**
+```bash
+cd frontend
+npm install
+```
+
+**Backend:**
+```bash
+cd ../backend
+npm install
+```
+
+### 3. Configure Environment Variables
+
+Buat file `.env` di dalam folder backend, kemudian isi konfigurasi Supabase sesuai kredensial project masing-masing.
+
+### 4. Run Application
+
+Jalankan backend terlebih dahulu melalui terminal:
+
+```bash
+cd backend
+npm run dev
+```
+
+Selanjutnya, buka terminal baru untuk menjalankan frontend:
+
+```bash
+cd anggaran-bansos-web/frontend
+npm run dev
+```
+
+### 5. Access Application
+
+Buka alamat lokal yang ditampilkan oleh Vite pada terminal, biasanya:
+
+```text
+http://localhost:5173
+```
+
+Pastikan backend dan frontend berjalan selama aplikasi digunakan.
+
 ## Status Proyek
 
 <code>Development</code>
