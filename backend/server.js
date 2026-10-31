@@ -68,6 +68,43 @@ app.get("/api/penyaluran", async (req, res) => {
   }
 });
 
+// Endpoint progress pengajuan bansos
+app.get("/api/pengajuan-bansos", async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from("pengajuan_bansos")
+      .select(`
+        id,
+        nomor_pengajuan,
+        tahun,
+        status_tahap,
+        tanggal_pengajuan,
+        tanggal_verifikasi,
+        tanggal_persetujuan,
+        estimasi_penerimaan,
+        tanggal_penyaluran,
+        kpm (
+          kode_kpm,
+          inisial_kepala
+        ),
+        program_bansos (
+          kode,
+          nama,
+          kriteria
+        )
+      `);
+
+    if (error) throw error;
+
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      message: "Gagal mengambil data progress pengajuan",
+      error: error.message
+    });
+  }
+});
+
 // Endpoint anggaran
 app.get("/api/anggaran", async (req, res) => {
   try {
