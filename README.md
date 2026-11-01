@@ -1,8 +1,8 @@
-# Anggaran & Bansos
+# BANSOSKITA
 
 ### Transparansi Informasi, Akses untuk Semua.
 
-**Anggaran & Bansos** merupakan platform informasi publik berbasis website yang berfokus pada transparansi pengelolaan anggaran dan penyaluran bantuan sosial. Platform ini dirancang untuk membantu masyarakat memperoleh informasi mengenai penggunaan anggaran, realisasi kegiatan, serta status penyaluran bantuan sosial secara lebih mudah dan terstruktur.
+**BANSOSKITA** merupakan platform informasi publik berbasis website yang berfokus pada transparansi pengelolaan anggaran dan penyaluran bantuan sosial. Platform ini dirancang untuk membantu masyarakat memperoleh informasi mengenai penggunaan anggaran, realisasi kegiatan, serta status penyaluran bantuan sosial secara lebih mudah dan terstruktur.
 
 ---
 
@@ -10,7 +10,7 @@
 
 Keterbukaan informasi publik merupakan salah satu aspek penting dalam membangun kepercayaan masyarakat terhadap pengelolaan anggaran dan penyaluran bantuan sosial. Namun, informasi tersebut masih dapat sulit ditemukan karena tersebar di berbagai sumber dan belum selalu disajikan dalam format yang mudah dipahami.
 
-Melalui Anggaran & Bansos, informasi publik disajikan dalam satu platform yang terstruktur dan mudah diakses. Dengan demikian, masyarakat dapat memperoleh gambaran mengenai penggunaan anggaran serta informasi penyaluran bantuan sosial secara lebih transparan.
+Melalui BANSOSKITA, informasi publik disajikan dalam satu platform yang terstruktur dan mudah diakses. Dengan demikian, masyarakat dapat memperoleh gambaran mengenai penggunaan anggaran serta informasi penyaluran bantuan sosial secara lebih transparan.
 
 ## Tujuan
 
@@ -116,7 +116,7 @@ Proyek masih dalam tahap pengembangan dan penyempurnaan fitur. Data yang digunak
 ---
 
 <p align="center">
-  <strong>Anggaran & Bansos</strong>
+  <strong>BANSOSKITA</strong>
   <br/>
   <em>Open Information. Better Accountability.</em>
 </p>
