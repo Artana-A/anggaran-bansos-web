@@ -1,6 +1,7 @@
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import StepperStatus from "../components/StepperStatus";
+import SearchBansos from "../components/SearchBansos";
 import "../App.css";
 
 const langkah = [
@@ -22,26 +23,40 @@ function formatTanggal(tanggal) {
 
 function CekBansos() {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [searched, setSearched] = useState(false);
 
-  useEffect(() => {
-    fetch("http://localhost:5000/api/pengajuan-bansos")
-      .then((response) => {
-        if (!response.ok) throw new Error("Gagal mengambil data");
-        return response.json();
-      })
-      .then((result) => setData(result[0] || null))
-      .catch((err) => setError(err.message))
-      .finally(() => setLoading(false));
-  }, []);
+  const handleSearch = async (formData) => {
+    setLoading(true);
+    setError("");
+    setData(null);
+    setSearched(true);
 
-  if (loading) return <main className="cek">Memuat data...</main>;
-  if (error) return <main className="cek">Error: {error}</main>;
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/pengajuan-bansos/search",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
-  if (!data) {
-    return <main className="cek"><h1>STATUS BANSOS</h1><p>Belum ada data.</p></main>;
-  }
+      if (!response.ok) {
+        throw new Error("Data penerima tidak ditemukan.");
+      }
+
+      const result = await response.json();
+      setData(result);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const urutan = {
     pengajuan: 1,
@@ -50,41 +65,65 @@ function CekBansos() {
     penyaluran: 4,
   };
 
-  const aktif = urutan[data.status_tahap] || 1;
+  const aktif = urutan[data?.status_tahap] || 1;
 
   return (
     <main className="cek">
-      <h1>STATUS BANSOS</h1>
+      {!data && (
+        <>
+          <SearchBansos onSearch={handleSearch} />
 
-      <div className="cek-header">
-        <div>
-          <div className="program">{data.program_bansos?.nama}</div>
-          <div className="nomor">{data.nomor_pengajuan}</div>
-        </div>
-        <span className="badge-status">
-          {langkah[aktif - 1].keterangan}
-        </span>
-      </div>
+          {loading && <p className="search-message">Mencari data...</p>}
+          {error && <p className="search-error">{error}</p>}
+        </>
+      )}
 
-      <StepperStatus langkah={langkah} aktif={aktif} />
+      {data && (
+        <>
+          <h1>STATUS BANSOS</h1>
 
-      <div className="info">
-        <div className="baris-info">
-          <span>Tanggal Approval</span>
-          <span className="nilai kuning">
-            {formatTanggal(data.tanggal_persetujuan)}
-          </span>
-        </div>
-        <div className="baris-info">
-          <span>Estimasi diterima</span>
-          <span className="nilai lime">
-            {formatTanggal(data.estimasi_penerimaan)}
-          </span>
-        </div>
-      </div>
+          <div className="cek-header">
+            <div>
+              <div className="program">{data.program_bansos?.nama}</div>
+              <div className="nomor">{data.nomor_pengajuan}</div>
+            </div>
+            <span className="badge-status">
+              {langkah[aktif - 1].keterangan}
+            </span>
+          </div>
 
-      <h2>Kriteria Penerima {data.program_bansos?.nama}</h2>
-      <p className="deskripsi">{data.program_bansos?.kriteria}</p>
+          <StepperStatus langkah={langkah} aktif={aktif} />
+
+          <div className="info">
+            <div className="baris-info">
+              <span>Tanggal Approval</span>
+              <span className="nilai kuning">
+                {formatTanggal(data.tanggal_persetujuan)}
+              </span>
+            </div>
+            <div className="baris-info">
+              <span>Estimasi diterima</span>
+              <span className="nilai lime">
+                {formatTanggal(data.estimasi_penerimaan)}
+              </span>
+            </div>
+          </div>
+
+          <h2>Kriteria Penerima {data.program_bansos?.nama}</h2>
+          <p className="deskripsi">{data.program_bansos?.kriteria}</p>
+
+          <button
+            className="search-back-button"
+            onClick={() => {
+              setData(null);
+              setError("");
+              setSearched(false);
+            }}
+          >
+            Cari Data Lain
+          </button>
+        </>
+      )}
     </main>
   );
 }

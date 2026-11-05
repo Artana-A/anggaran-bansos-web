@@ -1245,3 +1245,163 @@ body{
     min-width: 0;
   }
 }
+
+/* Search Bansos */
+.search-bansos {
+  width: 100%;
+  max-width: 650px;
+  margin: 40px auto;
+  padding: 32px 36px;
+  background: #ffffff;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  box-sizing: border-box;
+  color: #252525;
+}
+
+.search-bansos-heading {
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.search-bansos-heading h2 {
+  margin: 0 0 10px;
+  font-size: 25px;
+}
+
+.search-bansos-heading p,
+.search-bansos-description {
+  color: #686868;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.search-bansos-heading p {
+  margin: 0 auto;
+  max-width: 490px;
+}
+
+.search-bansos-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.search-bansos-form h3 {
+  margin: 0 0 -12px;
+  font-size: 18px;
+}
+
+.search-bansos-description {
+  margin: 0 0 2px;
+  font-size: 13px;
+}
+
+.search-bansos-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.search-bansos-field label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.search-bansos-field input,
+.search-bansos-field select {
+  width: 100%;
+  min-height: 45px;
+  padding: 0 13px;
+  border: 1px solid #dcdcdc;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #252525;
+  font: inherit;
+  font-size: 14px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.search-bansos-field input:focus,
+.search-bansos-field select:focus {
+  border-color: #2e7d32;
+  box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+}
+
+.search-bansos-field input::placeholder {
+  color: #aaaaaa;
+}
+
+.search-bansos-field small {
+  color: #858585;
+  font-size: 12px;
+}
+
+.search-bansos-error {
+  margin: -5px 0 0;
+  color: #d93030;
+  font-size: 13px;
+}
+
+.search-bansos-submit {
+  min-height: 46px;
+  margin-top: 2px;
+  border: 0;
+  border-radius: 7px;
+  background: #2e7d32;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.search-bansos-submit:hover {
+  background: #256629;
+}
+
+.search-bansos-security {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-top: 24px;
+  padding: 14px;
+  border-radius: 8px;
+  background: #f2f7f2;
+}
+
+.search-bansos-security-icon {
+  display: flex;
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #dceedd;
+  color: #2e7d32;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.search-bansos-security strong {
+  font-size: 13px;
+}
+
+.search-bansos-security p {
+  margin: 5px 0 0;
+  color: #666666;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+  .search-bansos {
+    margin: 24px auto;
+    padding: 25px 20px;
+  }
+
+  .search-bansos-heading h2 {
+    font-size: 22px;
+  }
+}

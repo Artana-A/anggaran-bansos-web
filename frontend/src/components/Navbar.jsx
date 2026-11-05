@@ -1,5 +1,6 @@
 
 import { useNavigate } from "react-router-dom";
+import SearchBansos from "../components/SearchBansos";
 import logo from "../assets/logo.png";
 
 function Navbar() {
