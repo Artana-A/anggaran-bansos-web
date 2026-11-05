@@ -4,10 +4,7 @@ function Footer() {
     <footer className="footer">
       <div className="footer-left">
         <p className="footer-description">
-          lorem ipsum dolor sit amet consectetur adipisicing elit
-          anim adipiscing qui blanditiis placeat eum provident
-          eligendi maxime excepturi laboris non nulla velit pariatur
-          dolor deserunt aliqua cumque
+          Platform informasi publik untuk memantau penyaluran bantuan sosial dan realisasi anggaran desa secara terbuka. Cek status bantuan dan lihat penggunaan anggaran di desamu.
         </p>
 
         <div className="footer-contact">
@@ -18,9 +15,9 @@ function Footer() {
       </div>
 
       <div className="footer-right">
-        <p>UUD BLABLABLABLA<br />TENTANG SSJJDDDKDKDJD</p>
-        <p>OKTOBER 2026</p>
-        <p>KEMENSOS, KEMENDIKBUD, KEMEN</p>
+        <p>UU No. 14 Tahun 2008<br />tentang Keterbukaan Informasi Publik</p>
+        <p>Data diperbarui: Oktober 2026</p>
+        <p>Sumber rujukan: Kemensos, Kemendikdasmen, Kemendes PDT</p>
       </div>
     </footer>
   );
