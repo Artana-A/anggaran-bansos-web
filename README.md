@@ -87,7 +87,7 @@ Jalankan backend terlebih dahulu melalui terminal:
 
 ```bash
 cd backend
-npm run dev
+node server.js
 ```
 
 Selanjutnya, buka terminal baru untuk menjalankan frontend:
