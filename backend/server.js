@@ -1,4 +1,4 @@
-
+const crypto = require("crypto");
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
@@ -193,6 +193,87 @@ app.get("/api/statistik-pulau", async (req, res) => {
     });
   }
 });
+
+
+// Endpoint pencarian status bansos
+app.post("/api/search-bansos", async (req, res) => {
+  try {
+    const { nomorKK, inisialKepala, dusun } = req.body;
+
+    if (!nomorKK || !inisialKepala || !dusun) {
+      return res.status(400).json({
+        message: "Semua data wajib diisi."
+      });
+    }
+
+    if (!/^\d{16}$/.test(nomorKK)) {
+      return res.status(400).json({
+        message: "Nomor KK harus terdiri dari 16 digit."
+      });
+    }
+
+    const kkHash = crypto
+      .createHash("sha256")
+      .update(nomorKK)
+      .digest("hex");
+
+    const { data, error } = await supabase
+      .from("kpm")
+      .select(`
+        kode_kpm,
+        inisial_kepala,
+        dusun,
+        pengajuan_bansos (
+          id,
+          nomor_pengajuan,
+          tahun,
+          status_tahap,
+          tanggal_pengajuan,
+          tanggal_verifikasi,
+          tanggal_persetujuan,
+          estimasi_penerimaan,
+          tanggal_penyaluran,
+          program_bansos (
+            kode,
+            nama,
+            kriteria
+          )
+        )
+      `)
+      .eq("kk_hash", kkHash)
+      .eq("inisial_kepala", inisialKepala.trim().toUpperCase())
+      .eq("dusun", dusun)
+      .maybeSingle();
+
+    if (error) throw error;
+
+    if (!data) {
+      return res.status(404).json({
+        message: "Data penerima tidak ditemukan."
+      });
+    }
+
+    if (!data.pengajuan_bansos?.length) {
+      return res.status(404).json({
+        message: "Belum ada pengajuan bansos untuk penerima ini."
+      });
+    }
+
+    res.json({
+      kode_kpm: data.kode_kpm,
+      inisial_kepala: data.inisial_kepala,
+      dusun: data.dusun,
+      pengajuan: data.pengajuan_bansos
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      message: "Gagal mencari data bansos.",
+      error: error.message
+    });
+  }
+});
+
 
 
 // Menjalankan server

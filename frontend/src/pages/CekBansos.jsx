@@ -25,17 +25,15 @@ function CekBansos() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [searched, setSearched] = useState(false);
 
   const handleSearch = async (formData) => {
     setLoading(true);
     setError("");
     setData(null);
-    setSearched(true);
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/pengajuan-bansos/search",
+        "http://localhost:5000/api/search-bansos",
         {
           method: "POST",
           headers: {
@@ -45,11 +43,12 @@ function CekBansos() {
         }
       );
 
+      const result = await response.json();
+
       if (!response.ok) {
-        throw new Error("Data penerima tidak ditemukan.");
+        throw new Error(result.message || "Data penerima tidak ditemukan.");
       }
 
-      const result = await response.json();
       setData(result);
     } catch (err) {
       setError(err.message);
@@ -64,8 +63,6 @@ function CekBansos() {
     persetujuan: 3,
     penyaluran: 4,
   };
-
-  const aktif = urutan[data?.status_tahap] || 1;
 
   return (
     <main className="cek">
@@ -82,42 +79,60 @@ function CekBansos() {
         <>
           <h1>STATUS BANSOS</h1>
 
-          <div className="cek-header">
-            <div>
-              <div className="program">{data.program_bansos?.nama}</div>
-              <div className="nomor">{data.nomor_pengajuan}</div>
-            </div>
-            <span className="badge-status">
-              {langkah[aktif - 1].keterangan}
-            </span>
-          </div>
+          {data.pengajuan.map((item) => {
+            const aktif = urutan[item.status_tahap] || 1;
 
-          <StepperStatus langkah={langkah} aktif={aktif} />
+            return (
+              <section key={item.id} className="status-bansos">
+                <div className="cek-header">
+                  <div>
+                    <div className="program">
+                      {item.program_bansos?.nama}
+                    </div>
+                    <div className="nomor">
+                      {item.nomor_pengajuan}
+                    </div>
+                  </div>
 
-          <div className="info">
-            <div className="baris-info">
-              <span>Tanggal Approval</span>
-              <span className="nilai kuning">
-                {formatTanggal(data.tanggal_persetujuan)}
-              </span>
-            </div>
-            <div className="baris-info">
-              <span>Estimasi diterima</span>
-              <span className="nilai lime">
-                {formatTanggal(data.estimasi_penerimaan)}
-              </span>
-            </div>
-          </div>
+                  <span className="badge-status">
+                    {langkah[aktif - 1].keterangan}
+                  </span>
+                </div>
 
-          <h2>Kriteria Penerima {data.program_bansos?.nama}</h2>
-          <p className="deskripsi">{data.program_bansos?.kriteria}</p>
+                <StepperStatus langkah={langkah} aktif={aktif} />
+
+                <div className="info">
+                  <div className="baris-info">
+                    <span>Tanggal Approval</span>
+                    <span className="nilai kuning">
+                      {formatTanggal(item.tanggal_persetujuan)}
+                    </span>
+                  </div>
+
+                  <div className="baris-info">
+                    <span>Estimasi diterima</span>
+                    <span className="nilai lime">
+                      {formatTanggal(item.estimasi_penerimaan)}
+                    </span>
+                  </div>
+                </div>
+
+                <h2>
+                  Kriteria Penerima {item.program_bansos?.nama}
+                </h2>
+
+                <p className="deskripsi">
+                  {item.program_bansos?.kriteria}
+                </p>
+              </section>
+            );
+          })}
 
           <button
             className="search-back-button"
             onClick={() => {
               setData(null);
               setError("");
-              setSearched(false);
             }}
           >
             Cari Data Lain
