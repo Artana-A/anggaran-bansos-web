@@ -12,7 +12,8 @@
       ]
     },
     "backend": {
-      "root": "backend/"
+      "root": "backend/",
+      "entrypoint": "src/server.js"
     }
   },
   "rewrites": [
