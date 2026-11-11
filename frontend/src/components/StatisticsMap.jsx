@@ -17,7 +17,7 @@ function StatisticsMap() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/statistik-pulau")
+    fetch("/api/statistik-pulau")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Gagal mengambil statistik");

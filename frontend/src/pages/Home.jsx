@@ -12,7 +12,7 @@ function Home() {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/anggaran')
+    fetch('/api/anggaran')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Gagal mengambil data anggaran')
