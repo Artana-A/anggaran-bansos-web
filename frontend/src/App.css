@@ -348,7 +348,7 @@ body{
   }
 }
 
-@media (max-width: 100%) {
+@media (max-width: 1000px) {
   .hero-carousel {
     width: 100%;
     min-height: 480px;
