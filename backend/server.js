@@ -278,11 +278,3 @@ app.post("/api/search-bansos", async (req, res) => {
 
 // Menjalankan server
 const PORT = process.env.PORT || 5000;
-
-if (require.main === module) {
-  app.listen(PORT, () => {
-    console.log(`Server berjalan di port ${PORT}`);
-  });
-}
-
-module.exports = app;
