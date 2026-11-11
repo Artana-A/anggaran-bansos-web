@@ -33,11 +33,7 @@ function CekBansos() {
 
     try {
       const response = await fetch(
-<<<<<<< HEAD
         "/api/search-bansos",
-=======
-        "http://localhost:5000/api/search-bansos",
->>>>>>> ca6e080bd90a5c0e096a9a933f3cf9542a27bcc1
         {
           method: "POST",
           headers: {
